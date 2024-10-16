@@ -1,0 +1,21 @@
+{
+  "name"        : "graphane-ai-poc",
+  "version"     : "1.0.0",
+  "description" : "Graphane AI - Proof of Concept",
+  "scripts"     : {
+    "01": "node --env-file=.env 01.quickstart.js",
+    "02": "node --env-file=.env 02.prompts.js",
+    "03": "node --env-file=.env 03.prompts.assistant.js",
+    "04a": "node --env-file=.env 04.assistant.A.create.js",
+    "04b": "node --env-file=.env --experimental-json-modules 04.assistant.B.thread.js",
+    "04c": "node --env-file=.env --experimental-json-modules 04.assistant.C.run.js"
+  },
+  "dependencies" : {
+    "openai": "^4.67.3"
+  },
+  "overrides": {
+    "whatwg-url": "14.0.0"
+  },
+  "private"     : true,
+  "type": "module"
+}

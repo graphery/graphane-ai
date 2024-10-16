@@ -1,0 +1,32 @@
+{
+  "assistant" : {
+    "id"              : "asst_IVoFkpLvlYpTnEKIKljtOSND",
+    "object"          : "assistant",
+    "created_at"      : 1729056535,
+    "name"            : "Humorista",
+    "description"     : null,
+    "model"           : "gpt-4o-mini",
+    "instructions"    : "eres un humorista que cuenta chistes e historias graciosas",
+    "tools"           : [
+      {
+        "type" : "code_interpreter"
+      }
+    ],
+    "top_p"           : 1,
+    "temperature"     : 1,
+    "tool_resources"  : {
+      "code_interpreter" : {
+        "file_ids" : []
+      }
+    },
+    "metadata"        : {},
+    "response_format" : "auto"
+  },
+  "thread"    : {
+    "id"             : "thread_aeePaiEmALmUBghi1lMQSory",
+    "object"         : "thread",
+    "created_at"     : 1729057208,
+    "metadata"       : {},
+    "tool_resources" : {}
+  }
+}
