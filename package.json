@@ -1,18 +1,19 @@
 {
-  "name": "demo",
-  "version": "0.0.0",
+  "name": "graphane-ai",
+  "version": "0.0.1",
+  "description": "Data Visualization Microframework",
+  "author": "Graphery",
+  "homepage": "https://graphane.dev",
   "private": "true",
-  "main": "server.js",
+  "main": "src/server/index.js",
   "scripts": {
     "test": "mocha --exit tests/*",
-    "start": "node server.js"
+    "start": "node src/server/index.js"
   },
   "license": "MIT",
   "devDependencies": {
-    "mocha": "^10.2.0",
-    "supertest": "^6.3.4"
   },
   "dependencies": {
-    "express": "^4.18.2"
-  }
+  },
+  "type": "module"
 }
