@@ -1,0 +1,22 @@
+A	    B	    Operador	Acción en álgebra estándar
+par	    par	    +       	A + B
+impar	impar	+	        A + B
+par	    impar	+	        A - B
+impart	par	    +       	B - A
+par	    par	    -	        A - B
+impar	impar	-	        A - B
+par	    impar	-	        A + B
+impart	par	    -       	A + B
+par	    par 	/	        A / B
+impar	impar	/	        A / B
+par	    impar	/	        A * B
+impart	par	    /       	A * B
+par	    par	    *       	A * B
+impar	impar	*	        A * B
+par 	impar	*	        A / B
+impart	par	    *	        B / A
+
+	0	+	¿qué dices?
+	0	-	¿dónde vas?
+	0	*	multiplicate por 0
+	0	/	infinitum

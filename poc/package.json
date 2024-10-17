@@ -8,7 +8,8 @@
     "03": "node --env-file=.env 03.prompts.assistant.js",
     "04a": "node --env-file=.env 04.assistant.A.create.js",
     "04b": "node --env-file=.env --experimental-json-modules 04.assistant.B.thread.js",
-    "04c": "node --env-file=.env --experimental-json-modules 04.assistant.C.run.js"
+    "04c": "node --env-file=.env --experimental-json-modules 04.assistant.C.run.js",
+    "05a": "node --env-file=.env ./05.math/a.prompts.js"
   },
   "dependencies" : {
     "openai": "^4.67.3"
