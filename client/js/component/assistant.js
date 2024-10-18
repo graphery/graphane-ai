@@ -166,27 +166,57 @@ class Assistant extends Base {
       ${ style }
       ${ html }
     `;
-    const main                = this.shadowRoot.querySelector('.main');
-    const welcome             = this.shadowRoot.querySelector('.welcome');
-    const text                = this.shadowRoot.querySelector('#text');
     this.shadowRoot.querySelector('form').addEventListener('submit', (e) => {
       e.preventDefault();
-      welcome.style.display = 'none';
-      main.append(UserBlock(text.value));
-      main.append(AssistantIcon());
-      text.value = '';
-      main.scrollTop = main.scrollHeight;
-
-      // Simulate AI response
-      setTimeout(() => {
-        main.querySelector('.animation').remove();
-        main.append(AssistantBlock('This is a simulated response from AI.'));
-        main.scrollTop = main.scrollHeight;
-      }, 4000);
-
+      return this.query();
     });
   }
+
+  async query (value) {
+    const ctx             = this[CONTEXT];
+    const main            = this.shadowRoot.querySelector('.main');
+    const welcome         = this.shadowRoot.querySelector('.welcome');
+    const text            = this.shadowRoot.querySelector('#text');
+    welcome.style.display = 'none';
+    value = text.value;
+    main.append(UserBlock(value));
+    main.append(AssistantIcon());
+    text.value     = '';
+    main.scrollTop = main.scrollHeight;
+
+    // // Simulate AI response
+    // setTimeout(() => {
+    //   main.querySelector('.animation').remove();
+    //   main.append(AssistantBlock('This is a simulated response from AI.'));
+    //   main.scrollTop = main.scrollHeight;
+    // }, 4000);
+
+    const response = await fetch(ctx.src,
+      {
+        method  : 'POST',
+        headers : {
+          'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({
+          question: value
+        })
+      });
+    main.querySelector('.animation').remove();
+    if (response.status === 200) {
+      const msg = await response.json();
+      if (msg.ok) {
+        main.append(AssistantBlock(msg.result));
+      } else {
+        main.append(AssistantBlock(`error ${ msg.error }`));
+      }
+    } else {
+      main.append(AssistantBlock(`error ${ result.status } (${ result.statusText })`));
+    }
+    main.scrollTop = main.scrollHeight;
+  }
+
 }
 
 define(Assistant)
+  .attr({name : 'src', type : 'string', value : '', posUpdate : RENDER})
   .tag('assistant');
