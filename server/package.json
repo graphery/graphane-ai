@@ -8,10 +8,11 @@
     "start" : "node --watch --env-file=./.env ./src/index.js"
   },
   "dependencies" : {
+    "dotenv"          : "^16.4.5",
     "@fastify/static" : "^7.0.4",
     "fastify"         : "^4.28.1",
     "openai"          : "^4.67.3",
-    "markdown-it": "^14.1.0"
+    "markdown-it"     : "^14.1.0"
   },
   "overrides"    : {
     "whatwg-url" : "14.0.0"
