@@ -1725,7 +1725,7 @@ These helpers are accessible in the data object both in the template and in the
 **Example**:
 
 ```svg
-<text x="10" y="5">minimum:<t-span>g-content="data.$min('value')"/></text>
+<text x="10" y="5">minimum:<t-span g-content="data.$min('value')"/></text>
 ```
 
 ---
@@ -1740,7 +1740,7 @@ These helpers are accessible in the data object both in the template and in the
 **Example**:
 
 ```svg
-<text x="20" y="5">maximum:<t-span>g-content="data.$max('value')"/></text>
+<text x="20" y="5">maximum:<t-span g-content="data.$max('value')"/></text>
 ```
 
 ---
@@ -1755,7 +1755,7 @@ These helpers are accessible in the data object both in the template and in the
 **Example**:
 
 ```svg
-<text x="30" y="5">values:<t-span>g-content="data.$count('value')"/></text>
+<text x="30" y="5">values:<t-span g-content="data.$count('value')"/></text>
 ```
 
 ---
@@ -1770,7 +1770,7 @@ These helpers are accessible in the data object both in the template and in the
 **Example**:
 
 ```svg
-<text x="40" y="5">total:<t-span>g-content="data.$sum('value')"/></text>
+<text x="40" y="5">total:<t-span g-content="data.$sum('value')"/></text>
 ```
 
 ---
@@ -1785,7 +1785,7 @@ These helpers are accessible in the data object both in the template and in the
 **Example**:
 
 ```svg
-<text x="50" y="5">average:<t-span>g-content="data.$avg('value')"/></text>
+<text x="50" y="5">average:<t-span g-content="data.$avg('value')"/></text>
 ```
 
 ---
