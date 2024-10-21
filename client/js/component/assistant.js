@@ -95,12 +95,21 @@ const style = `
     from { width: 0; }
     to { width: 100%; }
   }
+  #assistantSelect {
+    border: 0;
+    width: fit-content;
+    margin: 0;
+    padding: 0;
+    height: 1.3em;
+  }
 </style>
 `;
 const html  = `
 <div class="body">
   <div class="head">
-    AI Assistant for Graphane
+    <select id="assistantSelect">
+      <option value="">select an assistant</option>
+    </select>
   </div>
   <div class="main">
     <div class="welcome">
@@ -161,11 +170,24 @@ function AssistantIcon (text) {
 
 
 class Assistant extends Base {
-  [RENDER] () {
+  async [RENDER] () {
     this.shadowRoot.innerHTML = `
       ${ style }
       ${ html }
     `;
+    const assistantSelect     = this.shadowRoot.querySelector('#assistantSelect');
+    const response            = await fetch('/assistants/');
+    if (response.status === 200) {
+      const options = await response.json();
+      options.result.forEach(option => {
+        assistantSelect.innerHTML += `<option value="${ option }">${ option.substring(12, option.length - 1) }</option>`;
+      });
+    }
+    assistantSelect.value     = this[CONTEXT].src;
+    assistantSelect.addEventListener('change', () => {
+      this.src = assistantSelect.value;
+    })
+
     this.shadowRoot.querySelector('form').addEventListener('submit', (e) => {
       e.preventDefault();
       return this.query();
@@ -178,7 +200,7 @@ class Assistant extends Base {
     const welcome         = this.shadowRoot.querySelector('.welcome');
     const text            = this.shadowRoot.querySelector('#text');
     welcome.style.display = 'none';
-    value = text.value;
+    value                 = text.value;
     main.append(UserBlock(value));
     main.append(AssistantIcon());
     text.value     = '';
@@ -197,8 +219,8 @@ class Assistant extends Base {
         headers : {
           'Content-Type' : 'application/json'
         },
-        body: JSON.stringify({
-          question: value
+        body    : JSON.stringify({
+          question : value
         })
       });
     main.querySelector('.animation').remove();
