@@ -1,8 +1,35 @@
-import { fileURLToPath }     from 'node:url';
-import { basename, extname } from 'node:path';
-import setup                 from "./setup.js";
+import fs                from "node:fs/promises";
+import { createRequire } from 'node:module';
+import OpenAI            from "openai";
+import dotenv            from 'dotenv';
 
-const __filename = fileURLToPath(import.meta.url);
-const name       = basename(__filename, extname(__filename));
+const name = 'graphane-assistant-mini';
 
-setup(name);
+dotenv.config({path : '../.env'});
+const openai  = new OpenAI();
+const require = createRequire(import.meta.url);
+
+const markdownFile = `./${ name }.md`;
+const jsonFile     = `./${ name }.json`;
+let assistantId;
+const instructions = (await fs.readFile(markdownFile, 'utf8')).toString();
+try {
+  const fileContent = require(jsonFile);
+  assistantId       = fileContent.assistant.id;
+} catch (err) {
+  void (0);
+}
+
+const config    = {
+  name,
+  instructions,
+  tools : [{type : "code_interpreter"}],
+  model : "gpt-4o-mini"
+};
+const assistant = assistantId ?
+  await openai.beta.assistants.update(assistantId, config) :
+  await openai.beta.assistants.create(config);
+
+await fs.writeFile(jsonFile, JSON.stringify({assistant}, null, 2), 'utf8');
+console.log(name, '(assistant.id):', assistant.id);
+

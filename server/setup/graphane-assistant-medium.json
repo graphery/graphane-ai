@@ -1,8 +1,8 @@
 {
   "assistant": {
-    "id": "asst_IjMmlvtb9j4heFYXXa60oMXG",
+    "id": "asst_rcxLvOjllSzlV7WCE5NYB4bB",
     "object": "assistant",
-    "created_at": 1729488199,
+    "created_at": 1729516686,
     "name": "graphane-assistant-medium",
     "description": null,
     "model": "gpt-4o-mini",
