@@ -3,7 +3,8 @@ import { fileURLToPath } from "node:url";
 import Fastify           from 'fastify';
 import fastifyStatic     from '@fastify/static';
 import humor             from './humor.js';
-import medium             from './graphane-assistant-medium.js';
+import mini              from './graphane-assistant-mini.js';
+import medium            from './graphane-assistant-medium.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -16,10 +17,13 @@ const routes = [
     method  : 'GET',
     url     : `/assistants/`,
     handler : async (request, reply) => {
-      reply.send({ok : true, result: [
-        '/assistants/humor/',
-        '/assistants/graphane-assistant-medium/'
-      ]});
+      reply.send({
+        ok : true, result : [
+          '/assistants/humor/',
+          '/assistants/graphane-assistant-mini/',
+          '/assistants/graphane-assistant-medium/'
+        ]
+      });
     }
   },
   { // Run the assistant
@@ -45,6 +49,23 @@ const routes = [
     handler : async (request, reply) => {
       try {
         const result = await medium(request.body.question);
+        if (result) {
+          reply.send({ok : true, result});
+        } else {
+          reply.code(400).send({ok : false});
+        }
+      } catch (err) {
+        request.log.error(err);
+        return reply.code(500).send({ok : false});
+      }
+    }
+  },
+  { // Run the assistant
+    method  : 'POST',
+    url     : `/assistants/graphane-assistant-mini/`,
+    handler : async (request, reply) => {
+      try {
+        const result = await mini(request.body.question);
         if (result) {
           reply.send({ok : true, result});
         } else {

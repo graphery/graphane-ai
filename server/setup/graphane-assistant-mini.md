@@ -16,12 +16,13 @@ create accurate and well-structured Graphane components:
   <script type="data">
     <!-- CSV, JSON or JSON5 data -->
   </script>
+  <!-- optional methods -->
   <script type="methods">
-    <!-- Methods -->
   </script>
+  <!-- optional config -->
   <script type="config">
-    <!-- Config -->
   </script>
+  <!-- optional plugins -->
   <script type="plugin" src="plugin-url.js"></script>
 </g-composer>
 ```
@@ -30,11 +31,11 @@ create accurate and well-structured Graphane components:
 
 - **`g-for`**: Use this directive to loop through data arrays and generate multiple SVG elements
   dynamically. Example: `<g g-for="(item, index) of data">`
-- **`g-bind`**: Bind attributes dynamically to data. This is used to map data to SVG attributes like
-  `fill`, `x`, `y`, `width`, `height`, etc. Example:
-  `<rect g-bind:x="index * 40" g-bind:height="item.value"></rect>`
-- **`g-on`**: Handle events such as `click`, `mouseover`, etc., using `g-on`. Example:
-  `<rect g-on:click="handleClick"></rect>`
+- **`g-bind`**: (shorthand `:`) Bind attributes dynamically to data. This is used to map data to SVG
+  attributes like `fill`, `x`, `y`, `width`, `height`, etc. Example:
+  `<rect :x="index * 40" :height="item.value"></rect>`
+- **`g-on`**: (shorthand `@`) Handle events such as `click`, `mouseover`, etc., using `g-on`.
+  Example: `<rect @click="handleClick"></rect>`
 - **`g-if`**: Conditionally render SVG elements based on data values or logic. Example:
   `<circle g-if="item.value > 50"></circle>`
 - **`g-content`**: Dynamically insert text or content inside an SVG element. Examples:
@@ -45,7 +46,17 @@ create accurate and well-structured Graphane components:
 
 - Data is defined using the `<script type="data">` tag and can be in JSON, JSON5, or CSV format.
 - If a `data()` function is defined inside the `<script type="methods">`, it transforms the raw data
-  before rendering. Receives the original data and returns the transformed or calculated data.
+  before rendering. Receives the original data and returns the transformed or calculated data. 
+  Example: 
+```html
+<script type="methods">
+  function data(originalData) {
+    return originalData.map((item, index) => {
+      return {...item, color: $.config.colors[index]};
+    });
+  }
+</script>
+```
 - Use the data helpers as `data.$min()`, `data.max()`, `data.$sum()`, `data.$sum()`, `data.$max()`,
   `data.$avg()` and `data.$minBefore(idx)`, `data.maxBefore(idx)`, `data.$sumBefore(idx)`, 
   `data.$sumBefore(idx)`, `data.$maxBefore(idx)`, `data.$avgBefore(idx)` for simple and fast 
@@ -89,7 +100,6 @@ create accurate and well-structured Graphane components:
 - Ensure that all functions defined with `function` are accessible from the template.
 - Variables defined with `var`, `let`, or `const` inside methods are scoped to the script and cannot
   be accessed in the template.
-- Use chaining to manipulate multiple SVG properties in sequence.
 
 9. Always generate clean, readable code with proper indentation, and ensure that the generated
    Graphane components follow these guidelines.
