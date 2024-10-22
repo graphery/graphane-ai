@@ -141,7 +141,7 @@ function UserBlock (text) {
   userDiv.classList.add('justify-end');
   userDiv.innerHTML = `
     <div class="boxUser">
-      ${ text.replace(/\n/g, '<br/>') }
+      ${ text.replace(/</g, '&lt;').replace(/\n/g, '<br/>') }
     </div>
   `;
   return userDiv;
