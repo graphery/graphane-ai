@@ -232,7 +232,7 @@ class Assistant extends Base {
         main.append(AssistantBlock(`error ${ msg.error }`));
       }
     } else {
-      main.append(AssistantBlock(`error ${ result.status } (${ result.statusText })`));
+      main.append(AssistantBlock(`error ${ response.status } (${ response.statusText })`));
     }
     main.scrollTop = main.scrollHeight;
   }
