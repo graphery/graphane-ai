@@ -4,9 +4,9 @@
   "description": "Graphane AI Assistant",
   "author": "Graphery",
   "homepage": "https://graphane.dev",
-  "main": "server/src/index.js",
+  "main": "server/index.js",
   "scripts": {
-    "start" : "node --watch --env-file=./.env ./server/src/index.js"
+    "start" : "node --watch-path=./server --env-file=./.env ./server/index.js"
   },
   "license": "MIT",
   "dependencies" : {

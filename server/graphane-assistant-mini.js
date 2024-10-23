@@ -6,7 +6,7 @@ const openai  = new OpenAI();
 const md      = markdownIt();
 const require = createRequire(import.meta.url);
 
-const config = require('../../setup/graphane-assistant-mini.json');
+const config = require('../setup/graphane-assistant-mini.json');
 
 export default async function query (text) {
   const thread = await openai.beta.threads.create();

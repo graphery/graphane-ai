@@ -88,7 +88,7 @@ export async function start (port = PORT, host = HOST) {
     logger : {level : LOG_LEVEL},
   });
   await app.register(fastifyStatic, {
-    root : join(__dirname, '../../client/')
+    root : join(__dirname, '../client/')
   })
 
   // Load routes
