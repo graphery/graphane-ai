@@ -1,15 +1,29 @@
-# Graphane AI
+# Graphane AI Assistant
 
-AI assistant for Graphane - Data Visualization Microframework.
+The AI Assistant for Graphane - Data Visualization Microframework.
 
-## CI/CD with Auto DevOps
+## Development Setup
 
-This project is compatible with [Auto DevOps](https://docs.gitlab.com/ee/topics/autodevops/).
+To set up the development environment:
 
-If Auto DevOps is not already enabled for this project, you can [turn it on](https://docs.gitlab.com/ee/topics/autodevops/#enable-or-disable-auto-devops) in the project settings.
+1. Clone the repository:
+   ```bash
+   git clone https://gitlab.com/graphery/graphane-ai.git
+   cd graphane
+   ```
+2. Install develop dependencies:
+   ```bash
+   npm install
+   ```
+3. Run
+   ```bash
+   npm run start
+   ``` 
 
-### Developing with Gitpod
+## Setup GPT Assistant
 
-This template has a fully-automated dev setup for [Gitpod](https://docs.gitlab.com/ee/integration/gitpod.html).
+The initialization prompts for the GPT wizards are located in the `setup` folder.
 
-If you open this project in Gitpod, you'll get all Node dependencies pre-installed.
+- To modify the prompts, use the `.md` file.
+- To load the wizards and load the prompts you have to run the `.js` files.
+- The wizard configuration is stored in `.json` files.
