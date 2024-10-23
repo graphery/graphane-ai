@@ -3,9 +3,9 @@ import { createRequire } from 'node:module';
 import OpenAI            from "openai";
 import dotenv            from 'dotenv';
 
-const name = 'graphane-assistant-huge';
+const name = 'graphane-assistant-mini';
 
-dotenv.config({path : '../.env'});
+dotenv.config({path : '../server/.env'});
 const openai  = new OpenAI();
 const require = createRequire(import.meta.url);
 
