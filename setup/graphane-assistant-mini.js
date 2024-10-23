@@ -5,7 +5,7 @@ import dotenv            from 'dotenv';
 
 const name = 'graphane-assistant-mini';
 
-dotenv.config({path : '../server/.env'});
+dotenv.config({path : '../.env'});
 const openai  = new OpenAI();
 const require = createRequire(import.meta.url);
 

@@ -4,15 +4,21 @@
   "description": "Graphane AI Assistant",
   "author": "Graphery",
   "homepage": "https://graphane.dev",
-  "private": "true",
   "main": "server/src/index.js",
   "scripts": {
-    "start" : "node --watch --env-file=./server/.env ./server/src/index.js"
+    "start" : "node --watch --env-file=./.env ./server/src/index.js"
   },
   "license": "MIT",
-  "devDependencies": {
+  "dependencies" : {
+    "dotenv"          : "^16.4.5",
+    "@fastify/static" : "^7.0.4",
+    "fastify"         : "^4.28.1",
+    "openai"          : "^4.67.3",
+    "markdown-it"     : "^14.1.0"
   },
-  "dependencies": {
+  "overrides"    : {
+    "whatwg-url" : "14.0.0"
   },
+  "private"      : false,
   "type": "module"
 }
