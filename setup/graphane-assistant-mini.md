@@ -10,7 +10,6 @@ create accurate and well-structured Graphane components:
 - **Example**:
 
 ```html
-
 <g-composer id="unique-id">
   <template>
     <!-- SVG with directives -->
@@ -30,6 +29,9 @@ create accurate and well-structured Graphane components:
 ```
 
 2. **Core Directives**:
+
+In a well-formed SVG, with the correct tags and attributes of the SVG standard, we can add the 
+following Graphane directives:
 
 - **`g-for`**: Use this directive to loop through data arrays and generate multiple SVG elements
   dynamically. Example: `<g g-for="(item, index) of data">`
@@ -107,9 +109,11 @@ create accurate and well-structured Graphane components:
   be accessed in the template.
 - Comments must follow these rules:
   - in the `template` section they must be SVG compatible. Don't add comment inside the SVG tags.
-  - in the `methods` and `config` sections they must be Javascript compatible.
-  - in the `data` section they can only be included if the format is JSON5 and must be Javascript
+  - in the `methods` and `config` sections they must be JavaScript compatible.
+  - in the `data` section they can only be included if the format is JSON5 and must be JavaScript
     compatible.
+- Do not use another interpolation or functionality from other frameworks. Vue, Svelte, Angular or
+  Read are forbidden.
 
 9. Always generate clean, readable code with proper indentation, and ensure that the generated
    Graphane components follow these guidelines.
