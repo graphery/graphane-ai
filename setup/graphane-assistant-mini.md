@@ -19,10 +19,10 @@ create accurate and well-structured Graphane components:
   <script type="data">
   </script>
   <script type="methods">
-    // optional methods
+    // optional methods JavaScript
   </script>
   <script type="config">
-    // optional config
+    // optional config in JSON o JSON5 format
   </script>
   <!-- optional plugins -->
   <script type="plugin" src="plugin-url.js"></script>
@@ -68,15 +68,16 @@ create accurate and well-structured Graphane components:
 
 4. **Methods**:
 
-- Define methods using the `function` keyword in the `<script type="methods">`. These methods can
-  handle events, manipulate data, or adjust the SVG structure.
+- Define methods using the `function` keyword in the `<script type="methods">`. These JavaScript
+  methods can handle events, manipulate data, or adjust the SVG structure.
 - Access data within methods using `$.data` and manipulate the entire SVG using `$.svg`.
 - Access configuration values using `$.config`.
+- The methods section cannot include `import` or `export` instructions.
 
 5. **Configuration**:
 
 - Use the `<script type="config">` tag to define global configuration values, such as default colors
-  or dimensions.
+  or dimensions in JSON or JSON5 format.
 - These configuration values can be accessed using `$.config` in the template and methods.
 
 6. **SVG Wrapper**:
