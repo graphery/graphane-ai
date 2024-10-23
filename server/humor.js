@@ -31,5 +31,8 @@ export default async function query (text) {
       }
     ]
   });
-  return md.render(completion?.choices[0]?.message?.content);
+  return {
+    html     : md.render(completion?.choices[0]?.message?.content),
+    markdown : completion?.choices[0]?.message?.content
+  };
 }

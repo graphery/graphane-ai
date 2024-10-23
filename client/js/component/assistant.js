@@ -220,14 +220,16 @@ class Assistant extends Base {
           'Content-Type' : 'application/json'
         },
         body    : JSON.stringify({
-          question : value
+          question : value,
+          theadId: ctx.theadId
         })
       });
     main.querySelector('.animation').remove();
     if (response.status === 200) {
       const msg = await response.json();
       if (msg.ok) {
-        main.append(AssistantBlock(msg.result));
+        ctx.theadId = msg.result.threadId;
+        main.append(AssistantBlock(msg.result.html));
       } else {
         main.append(AssistantBlock(`error ${ msg.error }`));
       }

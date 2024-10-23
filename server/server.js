@@ -50,7 +50,7 @@ const routes = [
     url     : `/assistants/graphane-assistant-medium/`,
     handler : async (request, reply) => {
       try {
-        const result = await medium(request.body.question);
+        const result = await medium(request.body.question, request.body.threadId);
         if (result) {
           reply.send({ok : true, result});
         } else {
@@ -67,7 +67,7 @@ const routes = [
     url     : `/assistants/graphane-assistant-mini/`,
     handler : async (request, reply) => {
       try {
-        const result = await mini(request.body.question);
+        const result = await mini(request.body.question, request.body.threadId);
         if (result) {
           reply.send({ok : true, result});
         } else {
@@ -84,7 +84,7 @@ const routes = [
     url     : `/assistants/graphane-assistant-mini-tuned/`,
     handler : async (request, reply) => {
       try {
-        const result = await tuned(request.body.question);
+        const result = await tuned(request.body.question, request.body.threadId);
         if (result) {
           reply.send({ok : true, result});
         } else {
