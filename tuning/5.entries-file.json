@@ -1,0 +1,12 @@
+{
+  "file": {
+    "object": "file",
+    "id": "file-RB8mxDerQrvHA8XKZmynpjIE",
+    "purpose": "fine-tune",
+    "filename": "entries.jsonl",
+    "bytes": 746364,
+    "created_at": 1729666358,
+    "status": "processed",
+    "status_details": null
+  }
+}

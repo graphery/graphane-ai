@@ -1,0 +1,28 @@
+{
+  "fineTune": {
+    "object": "fine_tuning.job",
+    "id": "ftjob-qEPAD5XL9HlWdlgsCroGfEkT",
+    "model": "gpt-4o-mini-2024-07-18",
+    "created_at": 1729666359,
+    "finished_at": 1729666824,
+    "fine_tuned_model": "ft:gpt-4o-mini-2024-07-18:graphery::ALPdyQED",
+    "organization_id": "org-wx2OthNZzJuiCvUtnq9Ezux9",
+    "result_files": [
+      "file-ZdIcwfH912YjkkkJdvq61IFa"
+    ],
+    "status": "succeeded",
+    "validation_file": null,
+    "training_file": "file-RB8mxDerQrvHA8XKZmynpjIE",
+    "hyperparameters": {
+      "n_epochs": 3,
+      "batch_size": 1,
+      "learning_rate_multiplier": 1.8
+    },
+    "trained_tokens": 599628,
+    "error": {},
+    "user_provided_suffix": null,
+    "seed": 1522821239,
+    "estimated_finish": null,
+    "integrations": []
+  }
+}
