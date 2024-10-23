@@ -20,6 +20,13 @@ To set up the development environment:
    npm run start
    ``` 
 
+## API KEY
+
+The OPENAI API KEY must be included in the `./server/.env` file with a format as this one:
+```.env
+OPENAI_API_KEY=XX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX 
+```
+
 ## Setup GPT Assistant
 
 The initialization prompts for the GPT wizards are located in the `setup` folder.
