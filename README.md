@@ -22,7 +22,7 @@ To set up the development environment:
 
 ## API KEY
 
-The OPENAI API KEY must be included in the `./server/.env` file with a format as this one:
+The OPENAI API KEY must be included in the `./.env` file with a format as this one:
 ```.env
 OPENAI_API_KEY=XX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX 
 ```
