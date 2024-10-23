@@ -1,8 +1,8 @@
-# Contributing to GRAPHANE AI
+# Contributing to GRAPHANE AI Assistant
 
-Thank you for considering contributing to GRAPHANE AI! Contributions, whether they are bug reports,
-feature suggestions, code improvements, or documentation, are highly appreciated. Here’s a guide to
-help you get started.
+Thank you for considering contributing to GRAPHANE AI Assistant! Contributions, whether they are bug
+reports, feature suggestions, code improvements, or documentation, are highly appreciated. Here’s a
+guide to help you get started.
 
 ## Table of Contents
 
@@ -77,15 +77,11 @@ To set up the development environment:
 2. Install develop dependencies:
    ```bash
    npm install
-   npx playwright install
    ```
-3. To interactively test each of the cases, you can use the workbench tool. To run it with:
+3. Run
    ```bash
-   npm run workbench:<package-name>
+   npm run start
    ``` 
-4. Run the tests:
-   ```bash
-   npm test
    ```
 
 ## Contributing Examples
@@ -118,7 +114,6 @@ the [official GRAPHANE documentation](https://graphane.dev/).
 
 ---
 
-Thank you for contributing to GRAPHANE!
+Thank you for contributing to GRAPHANE AI Assistant!
 
 ```
-

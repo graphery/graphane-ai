@@ -1,14 +1,13 @@
 {
-  "name": "graphane-ai",
+  "name": "graphane-ai-assistant",
   "version": "0.0.1",
-  "description": "Data Visualization Microframework",
+  "description": "Graphane AI Assistant",
   "author": "Graphery",
   "homepage": "https://graphane.dev",
   "private": "true",
-  "main": "src/server/index.js",
+  "main": "server/src/index.js",
   "scripts": {
-    "test": "mocha --exit tests/*",
-    "start": "node src/server/index.js"
+    "start" : "node --watch --env-file=./server/.env ./server/src/index.js"
   },
   "license": "MIT",
   "devDependencies": {

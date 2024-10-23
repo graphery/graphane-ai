@@ -1,7 +1,7 @@
 {
   "name"         : "graphane-ai-server",
   "version"      : "0.0.1",
-  "description"  : "Graphane AI - server",
+  "description"  : "Graphane AI Assistant - server",
   "author"       : "Graphery",
   "main"         : "src/index.js",
   "scripts"      : {

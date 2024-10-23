@@ -1,7 +1,7 @@
 {
   "name": "graphane-ai-client",
   "version": "0.0.1",
-  "description": "Graphane AI - server",
+  "description": "Graphane AI Assistant - client",
   "author": "Graphery",
   "scripts": {
   },
