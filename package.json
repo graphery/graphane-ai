@@ -1,25 +1,26 @@
 {
-  "name"         : "graphane-ai-assistant",
-  "version"      : "0.0.1",
-  "description"  : "Graphane AI Assistant",
-  "author"       : "Graphery",
-  "homepage"     : "https://graphane.dev",
-  "main"         : "server/index.js",
-  "scripts"      : {
-    "start" : "node --watch-path=./server --env-file=./.env ./server/index.js"
+  "name": "graphane-ai-assistant",
+  "version": "0.0.1",
+  "description": "Graphane AI Assistant",
+  "author": "Graphery",
+  "homepage": "https://graphane.dev",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node --watch-path=./server --env-file=./.env ./server/index.js"
   },
-  "license"      : "MIT",
-  "dependencies" : {
-    "dotenv"          : "^16.4.5",
-    "@fastify/static" : "^7.0.4",
-    "@fastify/cors"   : "^8.5.0",
-    "fastify"         : "^4.28.1",
-    "openai"          : "^4.67.3",
-    "markdown-it"     : "^14.1.0"
+  "license": "MIT",
+  "dependencies": {
+    "@fastify/cors": "^8.5.0",
+    "@fastify/static": "^7.0.4",
+    "dotenv": "^16.4.5",
+    "fastify": "^4.28.1",
+    "markdown-it": "^14.1.0",
+    "openai": "^4.67.3",
+    "pino": "^9.5.0"
   },
-  "overrides"    : {
-    "whatwg-url" : "14.0.0"
+  "overrides": {
+    "whatwg-url": "14.0.0"
   },
-  "private"      : false,
-  "type"         : "module"
+  "private": false,
+  "type": "module"
 }

@@ -2,7 +2,8 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import Fastify           from 'fastify';
 import fastifyStatic     from '@fastify/static';
-import fastifyCors from '@fastify/cors';
+import fastifyCors       from '@fastify/cors';
+import pino              from 'pino';
 import humor             from './humor.js';
 import mini              from './graphane-assistant-mini.js';
 import tuned             from './graphane-assistant-mini-tuned.js';
@@ -13,6 +14,13 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const HOST      = process.env.HOST || 'localhost'
 const PORT      = process.env.PORT || 8080;
 const LOG_LEVEL = process.env.LOG_LEVEL || 'info';
+const logger    = pino(pino.destination('./logs/log.jsonl'));
+const endPoints = [
+  '/assistants/humor/',
+  '/assistants/graphane-assistant-mini/',
+  '/assistants/graphane-assistant-mini-tuned/',
+  '/assistants/graphane-assistant-medium/'
+];
 
 const routes = [
   { // Get the assistant collection
@@ -20,12 +28,7 @@ const routes = [
     url     : `/assistants/`,
     handler : async (request, reply) => {
       reply.send({
-        ok : true, result : [
-          '/assistants/humor/',
-          '/assistants/graphane-assistant-mini/',
-          '/assistants/graphane-assistant-mini-tuned/',
-          '/assistants/graphane-assistant-medium/'
-        ]
+        ok : true, result : endPoints
       });
     }
   },
@@ -104,22 +107,39 @@ let app;
 // Start the server
 export async function start (port = PORT, host = HOST) {
 
+  // Regular log
   app = Fastify({
     logger : {level : LOG_LEVEL},
   });
+
+  // Static server
   await app.register(fastifyStatic, {
     root : join(__dirname, '../client/')
-  })
+  });
 
-
-// Register CORS plugin
+  // Register CORS plugin
   await app.register(fastifyCors, {
     origin : '*'
   });
+
   // Load routes
   for (let route of routes) {
     app.route(route);
   }
+
+  // Custom log
+  app.addHook('onSend', async (request, reply, payload) => {
+    if (endPoints.includes(request.url) && request.method === 'POST') {
+      logger.info({
+        url      : request.url,
+        body     : request.body,
+        response : JSON.parse(payload),
+      });
+    }
+
+    // You must return the payload, or the response will not be sent.
+    return payload;
+  });
 
   return app.listen({host, port});
 }
