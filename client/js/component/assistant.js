@@ -158,7 +158,7 @@ function AssistantBlock (text) {
   assistantDiv.innerHTML = `
     <div class="boxAssistant">
       ${ logo }
-      ${ text.replace(/\n/g, '<br/>') }
+      ${ text }
     </div>
   `;
   return assistantDiv;
