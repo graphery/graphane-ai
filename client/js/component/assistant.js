@@ -5,13 +5,11 @@ import {
   CONTEXT
 } from 'https://cdn.graphery.online/graphane/1.0.0-beta/module/core/index.js';
 
-const logo = `<svg viewBox="0 0 60 60" style="width: 32px">
+const logo      = `<svg viewBox="0 0 60 60" style="width: 32px">
   <path stroke="#D80000" stroke-width="2" fill="none" d="M24.2,26.9923 L12.2,26.9923 L6.2,16.6 L12.2,6.2077 L24.2,6.2077 L30.2,16.6 Z" transform-origin="18.2 16.6"/>
   <path stroke="#00D800" stroke-width="2" fill="none" d="M29.5,30 L35.5,40.3923 L47.5,40.3923 L53.5,30 L47.5,19.6077 L35.5,19.6077 Z" transform-origin="41.5 30"/>
   <path stroke="#0000D8" stroke-width="2" fill="none" d="M24.2,33.0077 L12.2,33.0077 L6.2,43.4 L12.2,53.7923  L24.2,53.7923  L30.2,43.4  Z" transform-origin="18.2 43.4"/>
 </svg>`;
-
-
 const animation = `<svg viewBox="0 0 60 60" style="width: 32px">
   <path stroke="#D80000" stroke-width="2" fill="none" d="M24.2,26.9923 L12.2,26.9923 L6.2,16.6 L12.2,6.2077 L24.2,6.2077 L30.2,16.6 Z" transform-origin="18.2 16.6">
     <animateTransform attributeName="transform" type="scale" keyTimes="0; 0.25; 0.5; 0.75; 1" values  ="1;    0;   1;   1;  1" dur="2s" repeatCount="indefinite" />
@@ -141,7 +139,6 @@ const html  = `
   </form>
 </div>`;
 
-
 function UserBlock (text) {
   const userDiv = document.createElement('div');
   userDiv.classList.add('justify-end');
@@ -161,6 +158,16 @@ function AssistantBlock (text) {
       ${ text }
     </div>
   `;
+  assistantDiv.querySelectorAll('pre:has(code)').forEach(pre => {
+    const button = document.createElement('button');
+    button.innerHTML = 'copy';
+    button.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(pre.textContent);
+      button.innerHTML = 'copy ✓';
+      setTimeout(() => button.innerHTML = 'copy', 1000);
+    });
+    pre.before(button);
+  });
   return assistantDiv;
 }
 
@@ -181,7 +188,7 @@ class Assistant extends Base {
       ${ style }
       ${ html }
     `;
-    await this.getAssistant();
+    await this.getAssistants();
     const form   = this.shadowRoot.querySelector('form');
     const text   = this.shadowRoot.querySelector('#text');
     const button = this.shadowRoot.querySelector('#send');
@@ -200,7 +207,7 @@ class Assistant extends Base {
     });
   }
 
-  async getAssistant () {
+  async getAssistants () {
     const assistantSelect = this.shadowRoot.querySelector('#assistantSelect');
     const response        = await fetch('/assistants/');
     if (response.status === 200) {
@@ -225,8 +232,8 @@ class Assistant extends Base {
     }
     welcome.style.display = 'none';
     main.append(UserBlock(value));
-    text.value      = '';
-    button.disabled = true;
+    text.value          = '';
+    button.disabled     = true;
     const assistantIcon = AssistantIcon()
     main.append(assistantIcon);
     main.scroll({
@@ -249,7 +256,7 @@ class Assistant extends Base {
     if (response.status === 200) {
       const msg = await response.json();
       if (msg.ok) {
-        ctx.threadId = msg.result.threadId;
+        ctx.threadId   = msg.result.threadId;
         assistantBlock = AssistantBlock(msg.result.html)
       } else {
         assistantBlock = AssistantBlock(`error ${ msg.error }`);
