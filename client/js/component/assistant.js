@@ -25,14 +25,12 @@ const animation = `<svg viewBox="0 0 60 60" style="width: 32px">
 </svg>`;
 
 const style = `
-<link rel="stylesheet" href="https://cdn.graphery.online/stylent/stylent.min.css">
+<link rel="stylesheet" href="/css/stylent.css">
 <style>
   .body {
-    border: 1px solid #aaa;
-    border-radius: 1em;
+    border: 1px solid var(--st-color-4);
   }
   .head {
-    border-bottom: 1px solid #aaa;
     height: 2em;
     padding: 0.2em 0.6em;
   }
@@ -43,7 +41,8 @@ const style = `
     padding: 1em;
   }
   .boxUser {
-    background-color: #eee;
+    color: var(--st-color-9 );
+    background-color: var(--st-color-2);
     border-radius: 1em;
     margin-top: 1em;
     padding: 1em;

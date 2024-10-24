@@ -11,7 +11,6 @@
   - [ ] get the code from g-editor and add to the thread if it has not been sent before
   - [ ] add button "replace code" for code in the answer box
 - [ ] client: improve the answer style
-- [ ] client: add support for dynamic dark/light mode
  
 - [ ] server: log with dialogs in JSONL format for fine-tuning
 
@@ -33,3 +32,4 @@
     - [x] receive thread id
     - [x] send thread id on each call
     - [-] save thread id in local storage
+- [x] client: add support for dynamic dark/light mode
