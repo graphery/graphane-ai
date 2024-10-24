@@ -2,6 +2,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import Fastify           from 'fastify';
 import fastifyStatic     from '@fastify/static';
+import fastifyCors from '@fastify/cors';
 import humor             from './humor.js';
 import mini              from './graphane-assistant-mini.js';
 import tuned             from './graphane-assistant-mini-tuned.js';
@@ -110,6 +111,11 @@ export async function start (port = PORT, host = HOST) {
     root : join(__dirname, '../client/')
   })
 
+
+// Register CORS plugin
+  await app.register(fastifyCors, {
+    origin : '*'
+  });
   // Load routes
   for (let route of routes) {
     app.route(route);
