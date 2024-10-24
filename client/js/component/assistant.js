@@ -28,6 +28,7 @@ const style = `
 <link rel="stylesheet" href="/css/stylent.css">
 <style>
   .body {
+    height: 100%;
     border: 1px solid var(--st-color-4);
   }
   .head {
@@ -35,8 +36,8 @@ const style = `
     padding: 0.2em 0.6em;
   }
   .main {
-    min-height: 18em;
-    max-height: 30em;
+    position: relative;
+    height: calc(100% - 8em);
     overflow-y: auto;
     padding: 1em;
   }
@@ -52,12 +53,12 @@ const style = `
     padding: 1em;
   }
   .footer {
+    height: 5em;
     display: flex;
     align-items: center;
     margin: 0.5em;
     padding: 0.5em;
     tab-size: 4;
-    min-height: 5em;
   }
   .footer * {
     font-size: 0.9em;
@@ -73,10 +74,16 @@ const style = `
   .footer button {
     border-radius: 1em;
   }
+  .body .welcome {
+    position: absolute;
+    width: calc(100% - 2em);
+    top: 50%;
+    transform: translateY(-50%);
+  }
   .body .welcome .logo {
     width: 60px;
     height: 60px;
-    margin: 4em auto 2em auto;
+    margin: 1em auto 1.5em auto;
     display: block;
   }
   .body .welcome .typing-effect {

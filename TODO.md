@@ -2,7 +2,6 @@
 
 ## Pending
 
-- [ ] client: adjust to container size
 - [ ] client: limit the user box size
 - [ ] client: format code into the user box
 - [ ] client: add button "copy to clipboard" for code in the answer box
@@ -33,3 +32,4 @@
     - [x] send thread id on each call
     - [-] save thread id in local storage
 - [x] client: add support for dynamic dark/light mode
+- [x] client: adjust to container size
