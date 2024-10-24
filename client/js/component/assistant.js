@@ -137,7 +137,7 @@ const html  = `
   </div>
   <form class="footer boxUser">
     <textarea id="text" placeholder="what do you want?"></textarea>
-    <button type="submit" disabled>Send</button> 
+    <button id="send" type="submit" disabled>Send</button> 
   </form>
 </div>`;
 
@@ -164,7 +164,7 @@ function AssistantBlock (text) {
   return assistantDiv;
 }
 
-function AssistantIcon (text) {
+function AssistantIcon () {
   const assistantDiv     = document.createElement('div');
   assistantDiv.innerHTML = `
     <div class="boxAssistant animation">
@@ -183,8 +183,8 @@ class Assistant extends Base {
     `;
     await this.getAssistant();
     const form   = this.shadowRoot.querySelector('form');
-    const button = form.querySelector('button[type=submit]');
     const text   = this.shadowRoot.querySelector('#text');
+    const button = this.shadowRoot.querySelector('#send');
     text.addEventListener('keypress', (e) => {
       if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey && !e.altKey) {
         e.preventDefault();
@@ -218,15 +218,21 @@ class Assistant extends Base {
     const main    = this.shadowRoot.querySelector('.main');
     const welcome = this.shadowRoot.querySelector('.welcome');
     const text    = this.shadowRoot.querySelector('#text');
+    const button  = this.shadowRoot.querySelector('#send');
     value         = text.value;
     if (!value.replace(/\s/g, '')) {
       return;
     }
     welcome.style.display = 'none';
     main.append(UserBlock(value));
-    main.append(AssistantIcon());
-    text.value     = '';
-    main.scrollTop = main.scrollHeight;
+    text.value      = '';
+    button.disabled = true;
+    const assistantIcon = AssistantIcon()
+    main.append(assistantIcon);
+    main.scroll({
+      top      : assistantIcon.offsetTop,
+      behavior : 'smooth'
+    });
 
     const response = await fetch(ctx.src, {
       method  : 'POST',
@@ -239,18 +245,23 @@ class Assistant extends Base {
       })
     });
     main.querySelector('.animation').remove();
+    let assistantBlock;
     if (response.status === 200) {
       const msg = await response.json();
       if (msg.ok) {
         ctx.threadId = msg.result.threadId;
-        main.append(AssistantBlock(msg.result.html));
+        assistantBlock = AssistantBlock(msg.result.html)
       } else {
-        main.append(AssistantBlock(`error ${ msg.error }`));
+        assistantBlock = AssistantBlock(`error ${ msg.error }`);
       }
     } else {
-      main.append(AssistantBlock(`error ${ response.status } (${ response.statusText })`));
+      assistantBlock = AssistantBlock(`error ${ response.status } (${ response.statusText })`);
     }
-    main.scrollTop = main.scrollHeight;
+    main.append(assistantBlock);
+    main.scroll({
+      top      : assistantBlock.offsetTop,
+      behavior : 'smooth'
+    });
   }
 
 }

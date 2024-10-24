@@ -2,7 +2,6 @@
 
 ## Pending
 
-- [ ] client: smooth scroll to new assistant box top 
 - [ ] client: add button "copy to clipboard" for code in the answer box
 
 - [ ] client: connect to g-editor
@@ -35,3 +34,4 @@
 - [x] client: limit the user box size
 - [x] client: format code into the assistant box
 - [x] client: reassign the keys to create new lines and send the query in the textarea
+- [x] client: smooth scroll to new assistant box top 
