@@ -137,7 +137,7 @@ const html  = `
   </div>
   <form class="footer boxUser">
     <textarea id="text" placeholder="what do you want?"></textarea>
-    <button type="submit">Send</button> 
+    <button type="submit" disabled>Send</button> 
   </form>
 </div>`;
 
@@ -181,55 +181,63 @@ class Assistant extends Base {
       ${ style }
       ${ html }
     `;
-    const assistantSelect     = this.shadowRoot.querySelector('#assistantSelect');
-    const response            = await fetch('/assistants/');
+    await this.getAssistant();
+    const form   = this.shadowRoot.querySelector('form');
+    const button = form.querySelector('button[type=submit]');
+    const text   = this.shadowRoot.querySelector('#text');
+    text.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey && !e.altKey) {
+        e.preventDefault();
+        this.query();
+      }
+    });
+    text.addEventListener('input', () => {
+      button.disabled = !text.value.replace(/\s/g, '')
+    });
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.query();
+    });
+  }
+
+  async getAssistant () {
+    const assistantSelect = this.shadowRoot.querySelector('#assistantSelect');
+    const response        = await fetch('/assistants/');
     if (response.status === 200) {
       const options = await response.json();
       options.result.forEach(option => {
         assistantSelect.innerHTML += `<option value="${ option }">${ option.substring(12, option.length - 1) }</option>`;
       });
     }
-    assistantSelect.value     = this[CONTEXT].src;
-    assistantSelect.addEventListener('change', () => {
-      this.src = assistantSelect.value;
-    })
-
-    this.shadowRoot.querySelector('form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      return this.query();
-    });
+    assistantSelect.value = this[CONTEXT].src;
+    assistantSelect.addEventListener('change', () => this.src = assistantSelect.value);
   }
 
   async query (value) {
-    const ctx             = this[CONTEXT];
-    const main            = this.shadowRoot.querySelector('.main');
-    const welcome         = this.shadowRoot.querySelector('.welcome');
-    const text            = this.shadowRoot.querySelector('#text');
+    const ctx     = this[CONTEXT];
+    const main    = this.shadowRoot.querySelector('.main');
+    const welcome = this.shadowRoot.querySelector('.welcome');
+    const text    = this.shadowRoot.querySelector('#text');
+    value         = text.value;
+    if (!value.replace(/\s/g, '')) {
+      return;
+    }
     welcome.style.display = 'none';
-    value                 = text.value;
     main.append(UserBlock(value));
     main.append(AssistantIcon());
     text.value     = '';
     main.scrollTop = main.scrollHeight;
 
-    // // Simulate AI response
-    // setTimeout(() => {
-    //   main.querySelector('.animation').remove();
-    //   main.append(AssistantBlock('This is a simulated response from AI.'));
-    //   main.scrollTop = main.scrollHeight;
-    // }, 4000);
-
-    const response = await fetch(ctx.src,
-      {
-        method  : 'POST',
-        headers : {
-          'Content-Type' : 'application/json'
-        },
-        body    : JSON.stringify({
-          question : value,
-          threadId: ctx.threadId
-        })
-      });
+    const response = await fetch(ctx.src, {
+      method  : 'POST',
+      headers : {
+        'Content-Type' : 'application/json'
+      },
+      body    : JSON.stringify({
+        question : value,
+        threadId : ctx.threadId
+      })
+    });
     main.querySelector('.animation').remove();
     if (response.status === 200) {
       const msg = await response.json();
