@@ -38,7 +38,6 @@ class Assistant extends Base {
     });
 
     // HREF
-    debugger;
     const {href} = this[CONTEXT];
     let ref      = null;
     if (href) {
@@ -103,7 +102,7 @@ class Assistant extends Base {
       const msg = await response.json();
       if (msg.ok) {
         ctx.threadId   = msg.result.threadId;
-        assistantBlock = AssistantBlock(msg.result.html)
+        assistantBlock = AssistantBlock(msg.result.html, ctx.gEditor);
       } else {
         assistantBlock = AssistantBlock(`error ${ msg.error }`);
       }
@@ -136,7 +135,7 @@ function UserBlock (text) {
   return userDiv;
 }
 
-function AssistantBlock (text) {
+function AssistantBlock (text, editor) {
   const assistantDiv     = document.createElement('div');
   assistantDiv.innerHTML = `
     <div class="boxAssistant">
@@ -144,26 +143,7 @@ function AssistantBlock (text) {
       ${ text }
     </div>
   `;
-  assistantDiv.querySelectorAll('pre:has(code)').forEach(pre => {
-    const div                = document.createElement('div');
-    div.style.display        = 'flex';
-    div.style.justifyContent = 'flex-end';
-    div.style.marginBottom   = '-1.5em';
-    const button             = document.createElement('button');
-    button.style.color       = 'var(--st-fore-color)';
-    button.style.background  = 'var(--st-bg-color)';
-    button.style.border      = '0';
-    button.style.padding     = '0';
-    button.style.stroke      = 'var(--st-fore-color)';
-    button.innerHTML         = icons.clipboard + '&nbsp;&nbsp;&nbsp;&nbsp';
-    button.addEventListener('click', async () => {
-      await navigator.clipboard.writeText(pre.textContent);
-      button.innerHTML = icons.clipboard + ' ✓';
-      setTimeout(() => button.innerHTML = icons.clipboard + '&nbsp;&nbsp;&nbsp;&nbsp;', 1000);
-    });
-    div.appendChild(button);
-    pre.before(div);
-  });
+  assistantDiv.querySelectorAll('pre:has(code)').forEach(pre => codeToolbar(pre, editor));
   return assistantDiv;
 }
 
@@ -175,4 +155,44 @@ function AssistantIcon () {
     </div>
   `;
   return assistantDiv;
+}
+
+function codeToolbar (pre, editor) {
+  const div                = document.createElement('div');
+  div.style.display        = 'flex';
+  div.style.justifyContent = 'flex-end';
+  div.style.marginBottom   = '-1.5em';
+
+  const buttonClipboard            = document.createElement('button');
+  buttonClipboard.style.color      = 'var(--st-fore-color)';
+  buttonClipboard.style.background = 'var(--st-bg-color)';
+  buttonClipboard.style.border     = '0';
+  buttonClipboard.style.padding    = '0';
+  buttonClipboard.style.stroke     = 'var(--st-fore-color)';
+  buttonClipboard.innerHTML        = icons.clipboard + '&nbsp;&nbsp;&nbsp;&nbsp';
+  buttonClipboard.addEventListener('click', async () => {
+    await navigator.clipboard.writeText(pre.textContent);
+    buttonClipboard.innerHTML = icons.clipboard + ' ✓';
+    setTimeout(() => buttonClipboard.innerHTML = icons.clipboard + '&nbsp;&nbsp;&nbsp;&nbsp;', 1000);
+  });
+  div.appendChild(buttonClipboard);
+
+  if (editor) {
+    const buttonToEditor             = document.createElement('button');
+    buttonToEditor.style.color       = 'var(--st-fore-color)';
+    buttonToEditor.style.background  = 'var(--st-bg-color)';
+    buttonToEditor.style.border      = '0';
+    buttonToEditor.style.padding     = '0';
+    buttonToEditor.style.stroke      = 'var(--st-fore-color)';
+    buttonToEditor.style.strokeWidth = '10';
+    buttonToEditor.innerHTML         = icons.editor + '&nbsp;&nbsp;&nbsp;&nbsp';
+    buttonToEditor.addEventListener('click', async () => {
+      editor.code              = pre.textContent;
+      buttonToEditor.innerHTML = icons.editor + ' ✓';
+      setTimeout(() => buttonToEditor.innerHTML = icons.editor + '&nbsp;&nbsp;&nbsp;&nbsp;', 1000);
+    });
+    div.appendChild(buttonToEditor);
+  }
+
+  pre.before(div);
 }
