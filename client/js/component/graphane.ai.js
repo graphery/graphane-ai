@@ -1,10 +1,10 @@
 import {
   Base, define, RENDER, CONTEXT
-}                          from 'https://cdn.graphery.online/graphane/1.0.0-beta/module/core/index.js';
-import stylent             from './stylent.js';
-import style               from './style.js';
-import html                from './html.js';
-import { logo, animation } from "./icons.js";
+}                 from 'https://cdn.graphery.online/graphane/1.0.0-beta/module/core/index.js';
+import stylent    from './stylent.js';
+import style      from './style.js';
+import html       from './html.js';
+import * as icons from "./icons.js";
 
 class Assistant extends Base {
 
@@ -121,19 +121,29 @@ function AssistantBlock (text) {
   const assistantDiv     = document.createElement('div');
   assistantDiv.innerHTML = `
     <div class="boxAssistant">
-      ${ logo }
+      ${ icons.logo }
       ${ text }
     </div>
   `;
   assistantDiv.querySelectorAll('pre:has(code)').forEach(pre => {
-    const button     = document.createElement('button');
-    button.innerHTML = 'copy';
+    const div                = document.createElement('div');
+    div.style.display        = 'flex';
+    div.style.justifyContent = 'flex-end';
+    div.style.marginBottom  = '-1.5em';
+    const button             = document.createElement('button');
+    button.style.color       = 'var(--st-fore-color)';
+    button.style.background  = 'var(--st-bg-color)';
+    button.style.border      = '0';
+    button.style.padding     = '0';
+    button.style.stroke      = 'var(--st-fore-color)';
+    button.innerHTML         = icons.clipboard + '&nbsp;&nbsp;&nbsp;&nbsp';
     button.addEventListener('click', async () => {
       await navigator.clipboard.writeText(pre.textContent);
-      button.innerHTML = 'copy ✓';
-      setTimeout(() => button.innerHTML = 'copy', 1000);
+      button.innerHTML = icons.clipboard + ' ✓';
+      setTimeout(() => button.innerHTML = icons.clipboard + '&nbsp;&nbsp;&nbsp;&nbsp;', 1000);
     });
-    pre.before(button);
+    div.appendChild(button);
+    pre.before(div);
   });
   return assistantDiv;
 }
@@ -142,7 +152,7 @@ function AssistantIcon () {
   const assistantDiv     = document.createElement('div');
   assistantDiv.innerHTML = `
     <div class="boxAssistant animation">
-      ${ animation }
+      ${ icons.animation }
     </div>
   `;
   return assistantDiv;
