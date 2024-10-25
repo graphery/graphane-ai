@@ -1,26 +1,31 @@
 {
-  "name": "graphane-ai-assistant",
-  "version": "0.0.1",
-  "description": "Graphane AI Assistant",
-  "author": "Graphery",
-  "homepage": "https://graphane.dev",
-  "main": "server/index.js",
-  "scripts": {
-    "start": "node --watch-path=./server --env-file=./.env ./server/index.js"
+  "name"            : "graphane-ai-assistant",
+  "version"         : "0.0.1",
+  "description"     : "Graphane AI Assistant",
+  "author"          : "Graphery",
+  "homepage"        : "https://graphane.dev",
+  "main"            : "server/index.js",
+  "scripts"         : {
+    "start"           : "node --watch-path=./server --env-file=./.env ./server/index.js",
+    "build.component" : "rollup ./client/js/component/graphane.ai.js -f es -o dist/graphane.ai.js -p @rollup/plugin-terser"
   },
-  "license": "MIT",
-  "dependencies": {
-    "@fastify/cors": "^8.5.0",
-    "@fastify/static": "^7.0.4",
-    "dotenv": "^16.4.5",
-    "fastify": "^4.28.1",
-    "markdown-it": "^14.1.0",
-    "openai": "^4.67.3",
-    "pino": "^9.5.0"
+  "license"         : "MIT",
+  "devDependencies" : {
+    "@rollup/plugin-terser" : "^0.4.4",
+    "rollup"                : "^4.23.0"
   },
-  "overrides": {
-    "whatwg-url": "14.0.0"
+  "dependencies"    : {
+    "@fastify/cors"   : "^8.5.0",
+    "@fastify/static" : "^7.0.4",
+    "dotenv"          : "^16.4.5",
+    "fastify"         : "^4.28.1",
+    "markdown-it"     : "^14.1.0",
+    "openai"          : "^4.67.3",
+    "pino"            : "^9.5.0"
   },
-  "private": false,
-  "type": "module"
+  "overrides"       : {
+    "whatwg-url" : "14.0.0"
+  },
+  "private"         : false,
+  "type"            : "module"
 }
