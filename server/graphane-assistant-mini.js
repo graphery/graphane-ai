@@ -8,10 +8,27 @@ const require = createRequire(import.meta.url);
 
 const config = require('../setup/graphane-assistant-mini.json');
 
-export default async function query (text, threadId) {
+export default async function query (data) {
+
+  let {code, question, threadId} = data;
+
   if (!threadId) {
     const thread = await openai.beta.threads.create();
-    threadId = thread.id
+    threadId     = thread.id
+  }
+
+  if (code) {
+    await openai.beta.threads.messages.create(
+      threadId,
+      {
+        "role"    : "user",
+        "content" : [
+          {
+            type : "text",
+            text : `this is the current code: \`\`\`html\n${ code }\n\`\`\``
+          },
+        ]
+      });
   }
 
   await openai.beta.threads.messages.create(
@@ -21,7 +38,7 @@ export default async function query (text, threadId) {
       "content" : [
         {
           type : "text",
-          text
+          text : question
         },
       ]
     });
@@ -32,18 +49,18 @@ export default async function query (text, threadId) {
       assistant_id : config.assistant.id
     }
   );
-
   if (run.status === 'completed') {
     const messages   = await openai.beta.threads.messages.list(
       run.thread_id
     );
     const textResult = messages.data[0].content[0].text.value;
     return {
-      html: md.render(textResult),
-      markdown: textResult,
+      html     : md.render(textResult),
+      markdown : textResult,
       threadId,
     };
   } else {
     console.log('run.status', run.status);
   }
+
 }

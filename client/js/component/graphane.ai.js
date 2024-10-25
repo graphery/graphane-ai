@@ -9,6 +9,7 @@ import * as icons from "./icons.js";
 class Assistant extends Base {
 
   async [RENDER] () {
+
     this.shadowRoot.innerHTML = `
       <style>
         ${ stylent }
@@ -16,7 +17,9 @@ class Assistant extends Base {
       </style>
       ${ html }
     `;
+
     await this.getAssistants();
+
     const form   = this.shadowRoot.querySelector('form');
     const text   = this.shadowRoot.querySelector('#text');
     const button = this.shadowRoot.querySelector('#send');
@@ -33,6 +36,20 @@ class Assistant extends Base {
       e.preventDefault();
       this.query();
     });
+
+    // HREF
+    debugger;
+    const {href} = this[CONTEXT];
+    let ref      = null;
+    if (href) {
+      ref = this.getRootNode().querySelector(href);
+      if (!ref) {
+        console.error(`element ${ href } not found.`)
+      }
+    }
+
+    this[CONTEXT].gEditor = ref;
+
   }
 
   async getAssistants () {
@@ -75,6 +92,7 @@ class Assistant extends Base {
         'Content-Type' : 'application/json'
       },
       body    : JSON.stringify({
+        code     : ctx.gEditor?.code,
         question : value,
         threadId : ctx.threadId
       })
@@ -103,6 +121,7 @@ class Assistant extends Base {
 
 define(Assistant)
   .attr({name : 'src', type : 'string', value : '', posUpdate : RENDER})
+  .attr({name : 'href', type : 'string', value : '', posUpdate : RENDER})
   .tag('assistant');
 
 
@@ -129,7 +148,7 @@ function AssistantBlock (text) {
     const div                = document.createElement('div');
     div.style.display        = 'flex';
     div.style.justifyContent = 'flex-end';
-    div.style.marginBottom  = '-1.5em';
+    div.style.marginBottom   = '-1.5em';
     const button             = document.createElement('button');
     button.style.color       = 'var(--st-fore-color)';
     button.style.background  = 'var(--st-bg-color)';

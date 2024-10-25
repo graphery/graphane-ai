@@ -71,7 +71,7 @@ const routes = [
     url     : `/assistants/graphane-assistant-mini/`,
     handler : async (request, reply) => {
       try {
-        const result = await mini(request.body.question, request.body.threadId);
+        const result = await mini(request.body);
         if (result) {
           reply.send({ok : true, result});
         } else {
