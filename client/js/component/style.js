@@ -2,7 +2,6 @@
 export default `
   .body {
     height : 100%;
-    border : 1px solid var(--st-color-4);
   }
   
   .head {
