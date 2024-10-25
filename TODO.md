@@ -2,14 +2,11 @@
 
 ## Pending
 
-- [ ] client: add button "copy to clipboard" for code in the answer box
-
 - [ ] client: connect to g-editor
   - [ ] get the code from g-editor and add to the thread if it has not been sent before
   - [ ] add button "replace code" for code in the answer box
+- [ ] client: add prompt suggestions
 - [ ] client: improve the answer style
- 
-- [ ] server: log with dialogs in JSONL format for fine-tuning
 
 ## Done
 
@@ -35,3 +32,5 @@
 - [x] client: format code into the assistant box
 - [x] client: reassign the keys to create new lines and send the query in the textarea
 - [x] client: smooth scroll to new assistant box top 
+- [x] server: log with dialogs in JSONL format for fine-tuning
+- [x] client: add button "copy to clipboard" for code in the answer box

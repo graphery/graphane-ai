@@ -1,3 +1,9 @@
+const lemas = [
+  'Can I help you with Graphane?',
+  'Graphane insights for you',
+  'Graphane made easy with AI',
+  'Your smart guide to Graphane'
+];
 // Language=HTML
 export default `
 <div class="body">
@@ -20,7 +26,7 @@ export default `
         </path>
       </svg>
       <div class="typing-effect">
-        transforms your ideas into clear visualizations   
+        ${ lemas[Math.floor(Math.random() * lemas.length)] }   
       </div>
   </div>
   </div>
