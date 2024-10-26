@@ -20,6 +20,7 @@ class Assistant extends Base {
       ${ html }
     `;
 
+    this.shadowRoot.querySelector('#clear').addEventListener('click', () => this.clear());
     await this.getAssistants();
 
     const form   = this.shadowRoot.querySelector('form');
@@ -53,6 +54,10 @@ class Assistant extends Base {
 
   }
 
+  clear() {
+    this[RENDER]();
+  }
+
   async getAssistants () {
     const ctx = this[CONTEXT];
     const assistantSelect = this.shadowRoot.querySelector('#assistantSelect');
@@ -60,9 +65,10 @@ class Assistant extends Base {
     if (response.status === 200) {
       const options = await response.json();
       options.result.forEach(option => {
+        const url = `${ SERVER }${ option }`;
         assistantSelect.innerHTML += `
-          <option value="${ SERVER }${ option }" ${
-            ctx.src === option ? 'selected' : ''
+          <option value="${ url }" ${
+            ctx.src === option || ctx.src === url ? 'selected' : ''
           }>${ option.substring(12, option.length - 1) }</option>
         `;
       });
@@ -126,7 +132,7 @@ class Assistant extends Base {
 }
 
 define(Assistant)
-  .attr({name : 'src', type : 'string', value : '', posUpdate : RENDER})
+  .attr({name : 'src', type : 'string', value : ''})
   .attr({name : 'href', type : 'string', value : '', posUpdate : RENDER})
   .tag('assistant');
 

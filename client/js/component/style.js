@@ -83,7 +83,7 @@ export default `
     margin-right : auto;
     text-align   : center;
     font-size    : 2em;
-    line-height: 1.5em;
+    line-height  : 1.5em;
     animation    : fadein 2.5s;
   }
   
@@ -96,11 +96,20 @@ export default `
     }
   }
   
+  #clear {
+    display      : inline-block;
+    stroke       : var(--st-fore-color);
+    margin-right : 3em;
+    margin-top   : 2px;
+    cursor       : pointer;
+  }
+  
   #assistantSelect {
-    border  : 0;
-    width   : fit-content;
-    margin  : 0;
-    padding : 0;
-    height  : 1.3em;
+    border         : 0;
+    width          : fit-content;
+    vertical-align : super;
+    margin         : 0;
+    padding        : 0;
+    height         : 1.8em;
   }
 `;
