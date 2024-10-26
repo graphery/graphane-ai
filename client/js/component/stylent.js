@@ -106,11 +106,8 @@ export default `
   
   body,
   :host,
-  :root,
-  .body {
+  :root {
     line-height : var(--st-line-height);
-    color       : var(--st-fore-color);
-    background  : var(--st-bg-color);
     font-size   : var(--st-font-size);
     font-weight : var(--st-font-weight);
     font-family : var(--st-font-family)

@@ -78,11 +78,12 @@ export default `
     display : block;
   }
   
-  .body .welcome .typing-effect {
+  .body .welcome .lema-effect {
     margin-left  : auto;
     margin-right : auto;
     text-align   : center;
     font-size    : 2em;
+    line-height: 1.5em;
     animation    : fadein 2.5s;
   }
   

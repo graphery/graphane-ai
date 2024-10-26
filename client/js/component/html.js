@@ -25,7 +25,7 @@ export default `
           <animate attributeName="stroke-dasharray" values="0,100; 100,0; 0,0" keyTimes="0;0.9999;1" dur="0.5s" begin="1s" fill="freeze" />
         </path>
       </svg>
-      <div class="typing-effect">
+      <div class="lema-effect">
         ${ lemas[Math.floor(Math.random() * lemas.length)] }   
       </div>
   </div>
