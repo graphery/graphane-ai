@@ -74,19 +74,19 @@ export default `
     margin-right : auto;
     text-align   : center;
     font-size    : 2em;
-    white-space  : nowrap;
-    overflow     : hidden;
-    width        : 0;
-    height       : 2em;
-    animation    : typing 2.5s steps(40, end) forwards;
+    animation    : fadein 2.5s;
   }
   
-  @keyframes typing {
-    from {
-      width : 0;
+  @keyframes
+  fadein
+  {
+    from
+    {
+      opacity: 0;
     }
-    to {
-      width : 100%;
+    to
+    {
+      opacity: 1;
     }
   }
   

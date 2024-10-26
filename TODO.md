@@ -2,11 +2,9 @@
 
 ## Pending
 
-- [ ] client: connect to g-editor
-  - [ ] get the code from g-editor and add to the thread if it has not been sent before
-  - [ ] add button "replace code" for code in the answer box
 - [ ] client: add prompt suggestions
 - [ ] client: improve the answer style
+- [ ] client: improve dark mode
 
 ## Done
 
@@ -34,3 +32,7 @@
 - [x] client: smooth scroll to new assistant box top 
 - [x] server: log with dialogs in JSONL format for fine-tuning
 - [x] client: add button "copy to clipboard" for code in the answer box
+- [x] client: connect to g-editor
+  - [x] get the code from g-editor and add to the thread if it has not been sent before
+  - [x] add button "replace code" for code in the answer box
+- [x] client: refactor lema (fadein effect and style)
