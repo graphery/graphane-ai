@@ -54,6 +54,7 @@ class Assistant extends Base {
   }
 
   async getAssistants () {
+    const ctx = this[CONTEXT];
     const assistantSelect = this.shadowRoot.querySelector('#assistantSelect');
     const response        = await fetch(`${ SERVER }/assistants/`);
     if (response.status === 200) {
@@ -61,12 +62,13 @@ class Assistant extends Base {
       options.result.forEach(option => {
         assistantSelect.innerHTML += `
           <option value="${ SERVER }${ option }" ${
-            this[CONTEXT].src === option ? 'selected' : ''
+            ctx.src === option ? 'selected' : ''
           }>${ option.substring(12, option.length - 1) }</option>
         `;
       });
+      ctx.src = assistantSelect.value;
     }
-    assistantSelect.addEventListener('change', () => this.src = assistantSelect.value);
+    assistantSelect.addEventListener('change', () => ctx.src = assistantSelect.value);
   }
 
   async query (value) {
