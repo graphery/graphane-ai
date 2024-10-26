@@ -7,7 +7,7 @@ const lemas = [
 // Language=HTML
 export default `
 <div class="body">
-  <div class="head">
+  <div class="head text-right">
     <select id="assistantSelect">
       <option value="">select an assistant</option>
     </select>

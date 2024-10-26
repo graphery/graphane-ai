@@ -6,6 +6,8 @@ import style      from './style.js';
 import html       from './html.js';
 import * as icons from "./icons.js";
 
+const SERVER = 'http://localhost:8080';
+
 class Assistant extends Base {
 
   async [RENDER] () {
@@ -53,14 +55,17 @@ class Assistant extends Base {
 
   async getAssistants () {
     const assistantSelect = this.shadowRoot.querySelector('#assistantSelect');
-    const response        = await fetch('http://localhost:8080/assistants/');
+    const response        = await fetch(`${ SERVER }/assistants/`);
     if (response.status === 200) {
       const options = await response.json();
       options.result.forEach(option => {
-        assistantSelect.innerHTML += `<option value="http://localhost:8080${ option }">${ option.substring(12, option.length - 1) }</option>`;
+        assistantSelect.innerHTML += `
+          <option value="${ SERVER }${ option }" ${
+            this[CONTEXT].src === option ? 'selected' : ''
+          }>${ option.substring(12, option.length - 1) }</option>
+        `;
       });
     }
-    assistantSelect.value = this[CONTEXT].src;
     assistantSelect.addEventListener('change', () => this.src = assistantSelect.value);
   }
 
