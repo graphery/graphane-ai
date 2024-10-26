@@ -1,7 +1,9 @@
 // language=CSS
 export default `
   .body {
-    height : 100%;
+    --st-fore-color-alt-2 : var(--st-color-8);
+    --st-bg-color-alt-2   : var(--st-color-2);
+    height                : 100%;
   }
   
   .head {
@@ -17,11 +19,25 @@ export default `
   }
   
   .boxUser {
-    color            : var(--st-color-9);
-    background-color : var(--st-color-2);
+    color            : var(--st-fore-color-alt-2);
+    background-color : var(--st-bg-color-alt-2);
     border-radius    : 1em;
     margin-top       : 1em;
     padding          : 1em;
+  }
+  
+  .boxUser textarea {
+    border           : 0;
+    min-height       : 3.5em;
+    resize           : none;
+    color            : var(--st-fore-color-alt-2);
+    background-color : var(--st-bg-color-alt-2);
+    padding          : 0;
+  }
+  
+  .boxUser textarea::placeholder {
+    color   : var(--st-fore-color-alt-2);
+    opacity : 0.8;
   }
   
   .boxAssistant {
@@ -43,16 +59,9 @@ export default `
     margin    : 0 0.5em;
   }
   
-  .footer textarea {
-    border           : 0;
-    min-height       : 3.5em;
-    resize           : none;
-    background-color : transparent;
-    padding          : 0;
-  }
-  
   .footer button {
     border-radius : 1em;
+    border-color  : var(--var-fore-color);
   }
   
   .body .welcome {
@@ -77,16 +86,12 @@ export default `
     animation    : fadein 2.5s;
   }
   
-  @keyframes
-  fadein
-  {
-    from
-    {
-      opacity: 0;
+  @keyframes fadein {
+    from {
+      opacity : 0;
     }
-    to
-    {
-      opacity: 1;
+    to {
+      opacity : 1;
     }
   }
   

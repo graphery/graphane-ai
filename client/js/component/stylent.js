@@ -60,8 +60,8 @@ export default `
    Dark mode
    */
   @media (prefers-color-scheme : dark) {
-    :host,
-    :root {
+    :root,
+    :host {
       --st-fore-color     : var(--st-fore-color-dark);
       --st-bg-color       : var(--st-bg-color-dark);
       --st-fore-color-alt : var(--st-fore-color-alt-dark);
@@ -70,20 +70,21 @@ export default `
     
   }
   
-  :host.dark,
-  :root.dark {
-    --st-fore-color     : var(--st-fore-color-dark);
-    --st-bg-color       : var(--st-bg-color-dark);
-    --st-fore-color-alt : var(--st-fore-color-alt-dark);
-    --st-bg-color-alt   : var(--st-bg-color-alt-dark);
+  :root.dark,
+  :host(.dark),
+  :host-context(.dark) {
+    --st-fore-color     : var(--st-fore-color-dark) !important;
+    --st-bg-color       : var(--st-bg-color-dark) !important;
+    --st-fore-color-alt : var(--st-fore-color-alt-dark) !important;
+    --st-bg-color-alt   : var(--st-bg-color-alt-dark) !important;
   }
   
   /*
    Small screens
    */
   @media screen and (max-width : 768px) {
-    :host,
-    :root {
+    :root,
+    :host {
       --st-font-size : 14px;
     }
   }
@@ -100,15 +101,16 @@ export default `
     margin          : 0;
     padding         : 0;
     min-height      : 100vh;
-    color           : var(--st-fore-color);
-    background      : var(--st-bg-color);
     scroll-behavior : smooth;
   }
   
   body,
-  :host {
+  :host,
+  :root,
+  .body {
     line-height : var(--st-line-height);
     color       : var(--st-fore-color);
+    background  : var(--st-bg-color);
     font-size   : var(--st-font-size);
     font-weight : var(--st-font-weight);
     font-family : var(--st-font-family)
