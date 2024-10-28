@@ -55,6 +55,7 @@ class Assistant extends Base {
   }
 
   clear() {
+    this[CONTEXT].threadId = undefined;
     this[RENDER]();
   }
 
