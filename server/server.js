@@ -5,6 +5,7 @@ import fastifyStatic     from '@fastify/static';
 import fastifyCors       from '@fastify/cors';
 import pino              from 'pino';
 import humor             from './humor.js';
+import nano              from './graphane-assistant-nano.js';
 import mini              from './graphane-assistant-mini.js';
 import tuned             from './graphane-assistant-mini-tuned.js';
 import medium            from './graphane-assistant-medium.js';
@@ -17,6 +18,7 @@ const LOG_LEVEL = process.env.LOG_LEVEL || 'info';
 const logger    = pino(pino.destination('./logs/log.jsonl'));
 const endPoints = [
   '/assistants/humor/',
+  '/assistants/graphane-assistant-nano/',
   '/assistants/graphane-assistant-mini/',
   '/assistants/graphane-assistant-mini-tuned/',
   '/assistants/graphane-assistant-medium/'
@@ -72,6 +74,23 @@ const routes = [
     handler : async (request, reply) => {
       try {
         const result = await mini(request.body);
+        if (result) {
+          reply.send({ok : true, result});
+        } else {
+          reply.code(400).send({ok : false});
+        }
+      } catch (err) {
+        request.log.error(err);
+        return reply.code(500).send({ok : false});
+      }
+    }
+  },
+  { // Run the assistant
+    method  : 'POST',
+    url     : `/assistants/graphane-assistant-nano/`,
+    handler : async (request, reply) => {
+      try {
+        const result = await nano(request.body);
         if (result) {
           reply.send({ok : true, result});
         } else {
