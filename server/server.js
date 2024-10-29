@@ -9,6 +9,7 @@ import nano              from './graphane-assistant-nano.js';
 import mini              from './graphane-assistant-mini.js';
 import tuned             from './graphane-assistant-mini-tuned.js';
 import medium            from './graphane-assistant-medium.js';
+import will            from './will.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -17,6 +18,7 @@ const PORT      = process.env.PORT || 8080;
 const LOG_LEVEL = process.env.LOG_LEVEL || 'info';
 const logger    = pino(pino.destination('./logs/log.jsonl'));
 const endPoints = [
+    '/assistants/will/',
   '/assistants/humor/',
   '/assistants/graphane-assistant-nano/',
   '/assistants/graphane-assistant-mini/',
@@ -108,6 +110,23 @@ const routes = [
     handler : async (request, reply) => {
       try {
         const result = await tuned(request.body.question, request.body.threadId);
+        if (result) {
+          reply.send({ok : true, result});
+        } else {
+          reply.code(400).send({ok : false});
+        }
+      } catch (err) {
+        request.log.error(err);
+        return reply.code(500).send({ok : false});
+      }
+    }
+  },
+  {
+    method  : 'POST',
+    url     : `/assistants/will/`,
+    handler : async (request, reply) => {
+      try {
+        const result = await will(request.body);
         if (result) {
           reply.send({ok : true, result});
         } else {
