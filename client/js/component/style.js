@@ -112,4 +112,27 @@ export default `
     padding        : 0;
     height         : 1.8em;
   }
+  #suggestions {
+    display: flex;
+    width: 100%;
+  }
+  
+  #suggestions .suggestion-box {
+    width: 30%;
+    margin: 2em;
+    padding: 0.5em 1em;
+    border: 1px solid var(--st-color-3);
+    background-color: var(--st-color-1);
+    border-radius: 0.5em;
+    cursor: pointer;
+  }
+  
+  #suggestions .suggestion-box .title {
+    font-size: 1.25em; 
+  }
+  
+  #suggestions .suggestion-box .subtitle {
+    font-size: 0.8em;
+  }
+
 `;
