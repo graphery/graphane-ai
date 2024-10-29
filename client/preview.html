@@ -13,14 +13,35 @@
   <div style="width: 100%; height: 10vh">
     <h1>Proof of Concept</h1>
   </div>
-  <div style="width: 100%; height: 30vh; resize: vertical; overflow: auto; border : 1px solid #a3a3a3;">
+  <select id="questions" style="width: 100%; height: 5vh">
+    <option disabled selected>Select a question</option>
+    <option>Describe what Graphane is and its main parts.</option>
+    <option>Explain the function of each directive in Graphane, including g-if, g-on, g-bind, and g-content.</option>
+    <option>Provide a basic example of how to set up a data visualization in Graphane using g-composer.</option>
+    <option>How do you use the helper $$ to build SVG paths in Graphane?</option>
+    <option>Explain how to access data and configurations in the Graphane template.</option>
+    <option>Show how to configure data from a JSON or CSV file for use in Graphane"</option>
+    <option>Explain how to use data methods like data.$min, data.$max, and data.$sum in a visualization context.</option>
+    <option>Generate a simple bar chart in Graphane using sample data and explain each step.</option>
+    <option>How can you modify a chart in Graphane to update dynamically when data changes?</option>
+    <option>Provide an example of using g-bind to control SVG attributes like fill color or opacity in a data chart.</option>
+    <option>Suggest a suitable color palette for a temperature data visualization in Graphane.</option>
+    <option>How to apply smooth transitions to SVG elements in Graphane when data changes?</option>
+    <option>Identify possible common errors in Graphane and provide solutions for each.</option>
+    <option>Explain how to verify that data is correctly formatted and how Graphane handles formatting errors in CSV or JSON.</option>
+    <option>How to create and use advanced functions in Graphane for complex operations in SVG graphics?</option>
+    <option>Provide examples of custom helpers for manipulating data and charts.</option>
+    <option>Generate Graphane code that automates line chart creation based on a CSV file.</option>
+    <option>Design a Graphane template that allows switching between different types of charts based on a user selection.</option>
+  </select>
+  <div style="width: 100%; height: 40vh; resize: vertical; overflow: auto; border : 1px solid #a3a3a3;">
     <g-assistant src="/assistants/graphane-assistant-mini/" href="#editor"></g-assistant>
   </div>
   <div style="display: flex; justify-content: space-between; width: 100%; height: auto">
-    <div style="width: 50%; height: 30vh; border : 1px solid #a3a3a3;">
+    <div style="width: 50%; min-height: 30vh; height: fit-content; border : 1px solid #a3a3a3;">
       <g-editor id="editor" href="#preview" mode="edit"></g-editor>
     </div>
-    <div style="width: 50%; height: 30vh; border : 1px solid #a3a3a3;">
+    <div style="width: 50%; min-height: 30vh; height: fit-content; border : 1px solid #a3a3a3;">
       <g-composer id="preview">
         <template>
           <svg viewBox="0 0 100 100">
@@ -32,5 +53,20 @@
     </div>
   </div>
 </main>
+<script>
+  const select    = document.querySelector('#questions');
+  const assistant = document.querySelector('g-assistant');
+  assistant.addEventListener('render', function () {
+    const input = assistant.shadowRoot.querySelector('#text')
+    select.addEventListener('input', function () {
+      const event = new Event('input', {
+        bubbles: true,
+        cancelable: true,
+      });
+      input.value = select.value;
+      input.dispatchEvent(event);
+    });
+  });
+</script>
 </body>
 </html>
