@@ -54,12 +54,13 @@ class Assistant extends Base {
 
   }
 
-  clear() {
+  clear () {
+    this[CONTEXT].threadId = undefined;
     this[RENDER]();
   }
 
   async getAssistants () {
-    const ctx = this[CONTEXT];
+    const ctx             = this[CONTEXT];
     const assistantSelect = this.shadowRoot.querySelector('#assistantSelect');
     const response        = await fetch(`${ SERVER }/assistants/`);
     if (response.status === 200) {
@@ -68,8 +69,8 @@ class Assistant extends Base {
         const url = `${ SERVER }${ option }`;
         assistantSelect.innerHTML += `
           <option value="${ url }" ${
-            ctx.src === option || ctx.src === url ? 'selected' : ''
-          }>${ option.substring(12, option.length - 1) }</option>
+          ctx.src === option || ctx.src === url ? 'selected' : ''
+        }>${ option.substring(12, option.length - 1) }</option>
         `;
       });
       ctx.src = assistantSelect.value;
@@ -115,7 +116,7 @@ class Assistant extends Base {
       const msg = await response.json();
       if (msg.ok) {
         ctx.threadId   = msg.result.threadId;
-        assistantBlock = AssistantBlock(msg.result.html, ctx.gEditor);
+        assistantBlock = AssistantBlock(msg.result.html, ctx.gEditor, msg.result.usage);
       } else {
         assistantBlock = AssistantBlock(`error ${ msg.error }`);
       }
@@ -148,12 +149,13 @@ function UserBlock (text) {
   return userDiv;
 }
 
-function AssistantBlock (text, editor) {
+function AssistantBlock (text, editor, usage) {
   const assistantDiv     = document.createElement('div');
   assistantDiv.innerHTML = `
     <div class="boxAssistant">
       ${ icons.logo }
       ${ text }
+      ${ usage ? `<small>${ JSON.stringify(usage) } (± $${((usage.prompt_tokens * 1.5e-7) + (usage.prompt_tokens * 6e-7)).toFixed(5)})</small>` : '' }
     </div>
   `;
   assistantDiv.querySelectorAll('pre:has(code)').forEach(pre => codeToolbar(pre, editor));

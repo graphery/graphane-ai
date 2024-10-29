@@ -6,7 +6,7 @@ const openai  = new OpenAI();
 const md      = markdownIt();
 const require = createRequire(import.meta.url);
 
-const config = require('../setup/graphane-assistant-mini.json');
+const config = require('../setup/graphane-assistant-file.json');
 
 export default async function query (data) {
 
@@ -58,7 +58,7 @@ export default async function query (data) {
       html     : md.render(textResult),
       markdown : textResult,
       threadId,
-      usage    : run.usage,
+      usage: run.usage,
     };
   } else {
     console.log('run.status', run.status);

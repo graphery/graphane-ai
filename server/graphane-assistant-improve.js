@@ -6,7 +6,7 @@ const openai  = new OpenAI();
 const md      = markdownIt();
 const require = createRequire(import.meta.url);
 
-const config = require('../setup/graphane-assistant-mini.json');
+const config = require('../setup/graphane-assistant-improve.json');
 
 export default async function query (data) {
 
@@ -46,7 +46,9 @@ export default async function query (data) {
   let run = await openai.beta.threads.runs.createAndPoll(
     threadId,
     {
-      assistant_id : config.assistant.id
+      assistant_id : config.assistant.id,
+      temperature: 0.4,
+      top_p: 0.85
     }
   );
   if (run.status === 'completed') {
@@ -58,7 +60,7 @@ export default async function query (data) {
       html     : md.render(textResult),
       markdown : textResult,
       threadId,
-      usage    : run.usage,
+      usage: run.usage,
     };
   } else {
     console.log('run.status', run.status);

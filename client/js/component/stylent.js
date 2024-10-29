@@ -185,7 +185,7 @@ export default `
     margin-top          : var(--st-space-before);
     margin-bottom       : var(--st-space-after);
     padding-left        : 0;
-    list-style-position : inside;
+    list-style-position : outside;
   }
   
   ul li,
