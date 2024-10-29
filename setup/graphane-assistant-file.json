@@ -18,16 +18,18 @@
         }
       }
     ],
-    "top_p": 1,
-    "temperature": 1,
+    "top_p": 0.85,
+    "temperature": 0.5,
     "tool_resources": {
       "file_search": {
         "vector_store_ids": [
-          "vs_Wbij2icW8cMAKtK0Ka625xmj"
+          "vs_ur1iZqP4GCswUEk0goSDnHan"
         ]
       }
     },
     "metadata": {},
-    "response_format": "auto"
+    "response_format": {
+      "type": "text"
+    }
   }
 }
