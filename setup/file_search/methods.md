@@ -21,7 +21,6 @@ interacting into the `g-composer`.
 **Example**:
 
 ```html
-
 <script type="methods">
   let count = 0;
   function pos() {
@@ -43,7 +42,6 @@ interacting into the `g-composer`.
 **Example**:
 
 ```html
-
 <script type="methods">
   function data(originalData) {
     // Transform data before rendering
@@ -66,17 +64,15 @@ You can also load methods from an external JavaScript file:
 
 **Example**: Link to an external file directly in the `<script>` tag:
 
-   ```html
-
+```html
 <script type="methods" src="methods.js"></script>
-   ```
+```
 
 **Example**: Load methods via `g-composer` attribute:
 
-   ```html
-
+```html
 <g-composer methods-src="methods.js"></g-composer>
-   ```
+```
 
 ---
 
@@ -89,7 +85,6 @@ preprocessing or manipulation of the data before it is looped through or bound t
 **Example**:
 
 ```html
-
 <script type="methods">
   function data(originalData) {
     return originalData.map(item => ({
