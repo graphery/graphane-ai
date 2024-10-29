@@ -42,6 +42,7 @@ export default async function query (text, threadId) {
       html: md.render(textResult),
       markdown: textResult,
       threadId,
+      usage    : run.usage,
     };
   } else {
     console.log('run.status', run.status);

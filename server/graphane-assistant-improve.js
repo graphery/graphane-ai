@@ -55,12 +55,12 @@ export default async function query (data) {
     const messages   = await openai.beta.threads.messages.list(
       run.thread_id
     );
-    console.log('messages.data[0]', messages.data[0]);
     const textResult = messages.data[0].content[0].text.value;
     return {
       html     : md.render(textResult),
       markdown : textResult,
       threadId,
+      usage: run.usage,
     };
   } else {
     console.log('run.status', run.status);
