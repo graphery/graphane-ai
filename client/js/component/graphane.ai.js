@@ -20,12 +20,20 @@ class Assistant extends Base {
       ${ html }
     `;
 
-    this.shadowRoot.querySelector('#clear').addEventListener('click', () => this.clear());
-    await this.getAssistants();
-
     const form   = this.shadowRoot.querySelector('form');
     const text   = this.shadowRoot.querySelector('#text');
     const button = this.shadowRoot.querySelector('#send');
+
+    this.shadowRoot.querySelector('#suggestions').addEventListener('click', (e) => {
+      if (e.target.classList.contains('suggestion-box')) {
+        this.shadowRoot.querySelector('#text').value = e.target.querySelector('.title').textContent.replace('…', ' ');
+        this.shadowRoot.querySelector('#text').focus();
+      }
+    });
+
+    this.shadowRoot.querySelector('#clear').addEventListener('click', () => this.clear());
+    await this.getAssistants();
+
     text.addEventListener('keypress', (e) => {
       if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey && !e.altKey) {
         e.preventDefault();

@@ -22,6 +22,11 @@ export default `
       <div class="lema-effect">
         ${ lemas[Math.floor(Math.random() * lemas.length)] }   
       </div>
+      <div id="suggestions">
+        <div class="suggestion-box"><span class="title">Explain…</span><br><span class="subtitle">features, code, troubleshooting</span></div>
+        <div class="suggestion-box"><span class="title">Suggest…</span><br><span class="subtitle">colors, data, improvements</span></div>
+        <div class="suggestion-box"><span class="title">Create…</span><br><span class="subtitle">graphs scaffoldings, code snippets</span></div>
+      </div>
   </div>
   </div>
   <form class="footer boxUser">
